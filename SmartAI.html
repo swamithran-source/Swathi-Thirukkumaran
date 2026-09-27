@@ -1,0 +1,4547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SmartAI</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #e0f2fe, #f5f3ff);
+            min-height: 100vh;
+        }
+
+        header {
+            background: #6c5ce7;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 28px;
+        }
+
+        header p {
+            margin-top: 6px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 18px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.12);
+            margin-bottom: 25px;
+        }
+
+        h2 {
+            color: #6c5ce7;
+            margin-bottom: 18px;
+        }
+
+        label {
+            display: block;
+            margin-top: 12px;
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 7px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            font-size: 15px;
+        }
+
+        button {
+            width: 100%;
+            padding: 13px;
+            margin-top: 20px;
+            border: none;
+            border-radius: 10px;
+            background: #6c5ce7;
+            color: white;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #5848c2;
+        }
+
+        .categories {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .category {
+            flex: 1;
+            min-width: 180px;
+            padding: 25px;
+            text-align: center;
+            border-radius: 15px;
+            background: #f1f0ff;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .category:hover {
+            background: #ddd9ff;
+        }
+
+        #result {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #ecfdf5;
+            border-radius: 12px;
+            border-left: 5px solid #10b981;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🤖 SmartAI</h1>
+    <p>Your Smart Budget and Recommendation Assistant</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>👤 User Information</h2>
+
+        <label>Name</label>
+        <input type="text" id="name" placeholder="Enter your name">
+
+        <label>Budget</label>
+        <input type="number" id="budget" placeholder="Enter your budget">
+
+        <label>Category</label>
+        <select id="category">
+            <option value="">Select Category</option>
+            <option value="Home">🏠 Home</option>
+            <option value="Jewellery">💍 Jewellery</option>
+            <option value="Party">🎉 Party</option>
+        </select>
+
+        <label>Preference</label>
+        <input type="text" id="preference"
+               placeholder="Example: simple, modern, traditional">
+
+        <button onclick="getRecommendation()">
+            ✨ Get AI Recommendation
+        </button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="card">
+        <h2>📂 Explore Categories</h2>
+
+        <div class="categories">
+            <div class="category" onclick="selectCategory('Home')">
+                🏠<br>Home
+            </div>
+
+            <div class="category" onclick="selectCategory('Jewellery')">
+                💍<br>Jewellery
+            </div>
+
+            <div class="category" onclick="selectCategory('Party')">
+                🎉<br>Party
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    © 2026 SmartAI | Smart Budget & Recommendation Assistant
+</footer>
+
+<script>
+    function selectCategory(category) {
+        document.getElementById("category").value = category;
+    }
+
+    function getRecommendation() {
+
+        const name = document.getElementById("name").value;
+        const budget = document.getElementById("budget").value;
+        const category = document.getElementById("category").value;
+        const preference = document.getElementById("preference").value;
+
+        const result = document.getElementById("result");
+
+        if (!name || !budget || !category) {
+            result.style.display = "block";
+            result.innerHTML =
+                "⚠️ Please enter your name, budget and category.";
+            return;
+        }
+
+        result.style.display = "block";
+
+        result.innerHTML = `
+            <h3>🤖 AI Recommendation</h3>
+            <br>
+            Hello <b>${name}</b>! 👋
+            <br><br>
+            Your budget: <b>₹${budget}</b>
+            <br>
+            Category: <b>${category}</b>
+            <br>
+            Preference: <b>${preference || "Not specified"}</b>
+            <br><br>
+            💡 Based on your budget and preference,
+            SmartAI will generate a suitable
+            recommendation.
+        `;
+    }
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartAI - AI Budget Planner</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f8fc;
+    color: #17395f;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #12385d;
+    color: white;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 45px;
+}
+
+.logo {
+    font-size: 22px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.get-started {
+    background: #467eb7;
+    padding: 10px 18px;
+    border-radius: 20px;
+}
+
+/* HERO */
+.hero {
+    background: linear-gradient(135deg, #3977b4, #153d68);
+    color: white;
+    text-align: center;
+    padding: 70px 20px;
+}
+
+.hero h1 {
+    font-size: 42px;
+    margin-bottom: 12px;
+}
+
+.hero h2 {
+    font-size: 25px;
+    font-weight: normal;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    max-width: 700px;
+    margin: auto;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+.buttons {
+    margin-top: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 25px;
+    border-radius: 25px;
+    text-decoration: none;
+    margin: 5px;
+    font-weight: bold;
+}
+
+.btn-primary {
+    background: #347fc2;
+    color: white;
+}
+
+.btn-light {
+    background: white;
+    color: #24486c;
+}
+
+/* PLANNERS */
+.planners {
+    padding: 65px 35px;
+    text-align: center;
+}
+
+.planners h2 {
+    font-size: 30px;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.cards {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    text-align: left;
+}
+
+.card-top {
+    background: linear-gradient(90deg, #397dbc, #173e67);
+    color: white;
+    text-align: center;
+    padding: 20px;
+    font-size: 35px;
+}
+
+.card-content {
+    padding: 22px;
+}
+
+.card-content h3 {
+    margin-bottom: 12px;
+    color: #17395f;
+}
+
+.card-content p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+}
+
+/* TESTIMONIALS */
+.testimonials {
+    background: #eaf1f8;
+    padding: 70px 35px;
+    text-align: center;
+}
+
+.testimonials h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.testimonial-subtitle {
+    color: #777;
+    margin-bottom: 35px;
+}
+
+.review-cards {
+    max-width: 1100px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 18px;
+}
+
+.review {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: left;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+}
+
+.review p {
+    color: #666;
+    line-height: 1.6;
+    font-size: 14px;
+    font-style: italic;
+    margin-bottom: 20px;
+}
+
+.user {
+    font-weight: bold;
+    color: #17395f;
+}
+
+.role {
+    color: #777;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* FOOTER */
+footer {
+    background: #12385d;
+    color: white;
+    text-align: center;
+    padding: 22px;
+}
+
+/* MOBILE */
+@media(max-width: 800px) {
+    .cards,
+    .review-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .navbar {
+        padding: 0 18px;
+    }
+
+    .nav-links {
+        gap: 10px;
+    }
+
+    .nav-links a {
+        font-size: 11px;
+    }
+
+    .hero h1 {
+        font-size: 32px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="logo">SmartAI</div>
+
+    <div class="nav-links">
+        <a href="#planners">Features</a>
+        <a href="#testimonials">Testimonials</a>
+        <a href="#">Sign In</a>
+        <a href="#planners" class="get-started">Get Started</a>
+    </div>
+</nav>
+
+
+<!-- HOME PAGE -->
+<section class="hero">
+
+    <h1>SmartAI</h1>
+
+    <h2>AI-Powered Budget Planning for Everyday Needs</h2>
+
+    <p>
+        Make smarter financial decisions with personalized budget
+        recommendations for home interiors, parties, and jewelry purchases.
+        Our AI helps you get the most value for your money.
+    </p>
+
+    <div class="buttons">
+        <a href="#planners" class="btn btn-primary">
+            Get Started
+        </a>
+
+        <a href="#planners" class="btn btn-light">
+            Learn More
+        </a>
+    </div>
+
+</section>
+
+
+<!-- SMART BUDGET PLANNERS -->
+<section class="planners" id="planners">
+
+    <h2>Our Smart Budget Planners</h2>
+
+    <p class="subtitle">
+        Discover how SmartAI helps you make better financial
+        decisions across different areas of your life
+    </p>
+
+    <div class="cards">
+
+        <!-- HOME -->
+        <div class="card">
+
+            <div class="card-top">
+                🏠
+            </div>
+
+            <div class="card-content">
+                <h3>Home Interior Budget Planner</h3>
+
+                <p>
+                    Get personalized recommendations for furniture,
+                    lighting, and decor that fit your style preferences
+                    and budget constraints. Our AI helps you create a
+                    beautiful space without overspending.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- PARTY -->
+        <div class="card">
+
+            <div class="card-top">
+                🥂
+            </div>
+
+            <div class="card-content">
+                <h3>Party Budget Planner</h3>
+
+                <p>
+                    Plan your perfect event with smart budget allocations
+                    for venue, catering, decorations, and entertainment.
+                    Our AI suggests the best ways to create memorable
+                    events while staying within your budget.
+                </p>
+            </div>
+
+        </div>
+
+
+        <!-- JEWELLERY -->
+        <div class="card">
+
+            <div class="card-top">
+                💎
+            </div>
+
+            <div class="card-content">
+                <h3>Jewelry Budget Planner</h3>
+
+                <p>
+                    Find the ideal jewelry pieces for any occasion that
+                    match your outfit and budget. Our AI recommends
+                    options based on your preferences, occasion,
+                    and available budget.
+                </p>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- TESTIMONIALS PAGE -->
+<section class="testimonials" id="testimonials">
+
+    <h2>What Our Users Say</h2>
+
+    <p class="testimonial-subtitle">
+        Real experiences from people who have transformed
+        their financial planning with SmartAI
+    </p>
+
+
+    <div class="review-cards">
+
+        <div class="review">
+
+            <p>
+                "SmartAI helped me furnish my new apartment
+                without breaking the bank. The recommendations
+                were spot on and I saved nearly 30% of my original budget!"
+            </p>
+
+            <div class="user">Suji s.</div>
+            <div class="role">Home Owner</div>
+
+        </div>
+
+
+        <div class="review">
+
+            <p>
+                "Planning my daughter's birthday party was so much
+                easier with SmartAI's budget breakdown. The AI
+                suggestions for affordable catering and catering
+                options were fantastic."
+            </p>
+
+            <div class="user">Joel jayakumar.D.</div>
+            <div class="role">Parent</div>
+
+        </div>
+
+
+        <div class="review">
+
+            <p>
+                "The jewelry recommendations perfectly matched my
+                outfit for the wedding. Saved me hours of searching
+                and I received so many compliments on my accessories!"
+            </p>
+
+            <div class="user">Teja shree.</div>
+            <div class="role">Fashion Enthusiast</div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+    <p>© 2026 SmartAI | AI-Powered Budget Planning</p>
+</footer>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Home Interior Budget Planner</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background: #f5f8fb;
+    color: #17395f;
+}
+
+/* NAVBAR */
+.navbar {
+    background: #12385d;
+    color: white;
+    padding: 14px 25px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-size: 13px;
+}
+
+.nav-links a:hover {
+    color: #8fc7ff;
+}
+
+/* HEADER */
+.page-header {
+    background: linear-gradient(135deg, #3978b5, #173d67);
+    color: white;
+    text-align: center;
+    padding: 28px 15px;
+}
+
+.page-header h1 {
+    font-size: 27px;
+    margin-bottom: 8px;
+}
+
+.page-header p {
+    font-size: 13px;
+}
+
+/* MAIN FORM */
+.container {
+    width: 90%;
+    max-width: 850px;
+    margin: 25px auto;
+    background: white;
+    padding: 18px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+}
+
+/* FORM SECTIONS */
+.form-section {
+    background: #edf4f9;
+    padding: 18px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+}
+
+.form-section h3 {
+    color: #174e7c;
+    margin-bottom: 15px;
+    font-size: 17px;
+}
+
+.form-group {
+    margin-bottom: 12px;
+}
+
+label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+input[type="number"],
+textarea {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #d3dce5;
+    border-radius: 6px;
+    background: white;
+    outline: none;
+}
+
+input[type="number"]:focus,
+textarea:focus {
+    border-color: #3978b5;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+/* CHECKBOXES */
+.checkbox-group {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+.checkbox-item {
+    font-size: 13px;
+}
+
+.checkbox-item input {
+    margin-right: 5px;
+}
+
+/* BUTTON */
+.button-container {
+    text-align: center;
+}
+
+button {
+    background: linear-gradient(90deg, #3978b5, #12385d);
+    color: white;
+    border: none;
+    padding: 13px 28px;
+    border-radius: 25px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    opacity: 0.9;
+}
+
+/* RESULT */
+#result {
+    display: none;
+    margin-top: 20px;
+    background: #eaf6ee;
+    border-left: 5px solid #2e8b57;
+    padding: 18px;
+    border-radius: 8px;
+}
+
+#result h3 {
+    margin-bottom: 10px;
+    color: #176b3a;
+}
+
+/* MOBILE */
+@media(max-width: 650px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 12px;
+    }
+
+    .nav-links {
+        gap: 10px;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .checkbox-group {
+        flex-direction: column;
+    }
+
+    .page-header h1 {
+        font-size: 23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+
+    <div class="logo">
+        💻 SmartAI
+    </div>
+
+    <div class="nav-links">
+        <a href="#">📊 Dashboard</a>
+        <a href="#">🏠 Home Budget</a>
+        <a href="#">🎉 Party Budget</a>
+        <a href="#">💎 Jewelry Budget</a>
+        <a href="#">↪ Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- PAGE HEADER -->
+<section class="page-header">
+
+    <h1>Home Interior Budget Planner</h1>
+
+    <p>
+        Create a customized budget plan for your dream home interior
+    </p>
+
+</section>
+
+
+<!-- FORM -->
+<div class="container">
+
+    <!-- BUDGET DETAILS -->
+    <div class="form-section">
+
+        <h3>💰 Budget Details</h3>
+
+        <div class="form-group">
+
+            <label>Total Budget ($)</label>
+
+            <input
+                type="number"
+                id="budget"
+                placeholder="Enter your total budget"
+                value="5000"
+            >
+
+        </div>
+
+    </div>
+
+
+    <!-- FIXTURES -->
+    <div class="form-section">
+
+        <h3>💡 Fixtures & Furniture</h3>
+
+        <div class="grid">
+
+            <div class="form-group">
+
+                <label>💡 Number of Lights/Fixtures</label>
+
+                <input
+                    type="number"
+                    id="lights"
+                    value="5"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>🌀 Number of Ceiling Fans</label>
+
+                <input
+                    type="number"
+                    id="fans"
+                    value="4"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>🛋️ Number of Furniture Pieces</label>
+
+                <input
+                    type="number"
+                    id="furniture"
+                    value="2"
+                    min="0"
+                >
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label>🍽️ Number of Dining Tables</label>
+
+                <input
+                    type="number"
+                    id="tables"
+                    value="1"
+                    min="0"
+                >
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ROOMS -->
+    <div class="form-section">
+
+        <h3>🏠 Rooms to Include</h3>
+
+        <div class="checkbox-group">
+
+            <label class="checkbox-item">
+                <input type="checkbox" id="living" checked>
+                🛋️ Living Room
+            </label>
+
+            <label class="checkbox-item">
+                <input type="checkbox" id="kitchen" checked>
+                🍳 Kitchen
+            </label>
+
+            <label class="checkbox-item">
+                <input type="checkbox" id="bedroom">
+                🛏️ Bedroom
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADDITIONAL INFORMATION -->
+    <div class="form-section">
+
+        <h3>ℹ️ Additional Information</h3>
+
+        <label>
+            Special Requirements or Preferences
+        </label>
+
+        <textarea
+            id="preferences"
+            rows="4"
+            placeholder="Any specific requirements or preferences..."
+        ></textarea>
+
+    </div>
+
+
+    <!-- BUTTON -->
+    <div class="button-container">
+
+        <button onclick="generateRecommendation()">
+            📋 Generate Recommendations
+        </button>
+
+    </div>
+
+
+    <!-- RESULT -->
+    <div id="result"></div>
+
+</div>
+
+
+<script>
+
+function generateRecommendation() {
+
+    const budget =
+        document.getElementById("budget").value;
+
+    const lights =
+        document.getElementById("lights").value;
+
+    const fans =
+        document.getElementById("fans").value;
+
+    const furniture =
+        document.getElementById("furniture").value;
+
+    const tables =
+        document.getElementById("tables").value;
+
+    const preferences =
+        document.getElementById("preferences").value;
+
+    const living =
+        document.getElementById("living").checked;
+
+    const kitchen =
+        document.getElementById("kitchen").checked;
+
+    const bedroom =
+        document.getElementById("bedroom").checked;
+
+    const result =
+        document.getElementById("result");
+
+
+    if (!budget || budget <= 0) {
+
+        result.style.display = "block";
+
+        result.innerHTML =
+            "<h3>⚠️ Please enter a valid budget.</h3>";
+
+        return;
+    }
+
+
+    let rooms = [];
+
+    if (living) rooms.push("Living Room");
+    if (kitchen) rooms.push("Kitchen");
+    if (bedroom) rooms.push("Bedroom");
+
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+
+        <h3>🤖 SmartAI Recommendation</h3>
+
+        <p>
+            <b>Total Budget:</b> $${budget}
+        </p>
+
+        <p>
+            <b>Lights/Fixtures:</b> ${lights}
+        </p>
+
+        <p>
+            <b>Ceiling Fans:</b> ${fans}
+        </p>
+
+        <p>
+            <b>Furniture Pieces:</b> ${furniture}
+        </p>
+
+        <p>
+            <b>Dining Tables:</b> ${tables}
+        </p>
+
+        <p>
+            <b>Rooms:</b> ${rooms.join(", ") || "None selected"}
+        </p>
+
+        <p>
+            <b>Preferences:</b>
+            ${preferences || "No special preferences added"}
+        </p>
+
+        <br>
+
+        <p>
+            💡 Your details have been collected successfully.
+            The AI recommendation will be generated based on
+            your budget and preferences.
+        </p>
+
+    `;
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Recommendations</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#243b53;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#12385d;
+    color:white;
+    padding:14px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:19px;
+}
+
+.nav-links{
+    display:flex;
+    gap:18px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+}
+
+/* MAIN */
+.container{
+    width:92%;
+    max-width:850px;
+    margin:25px auto;
+}
+
+.generate{
+    display:block;
+    margin:0 auto 20px;
+    background:linear-gradient(90deg,#397db9,#12385d);
+    color:white;
+    border:0;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:25px;
+    margin-bottom:18px;
+}
+
+/* BUDGET */
+.budget-box{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 3px 12px #ddd;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.box-title{
+    background:linear-gradient(90deg,#397db9,#12385d);
+    color:white;
+    padding:13px;
+    font-weight:bold;
+}
+
+.budget-content{
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+    font-size:14px;
+}
+
+.remaining{
+    color:#239447;
+    font-weight:bold;
+}
+
+/* PRODUCT SECTION */
+.product-section{
+    background:white;
+    border-radius:13px;
+    margin-bottom:15px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.section-title{
+    background:#f1f1f7;
+    padding:14px;
+}
+
+.section-title h3{
+    color:#234b70;
+}
+
+.section-title p{
+    font-size:12px;
+    margin-top:5px;
+}
+
+.table-wrapper{
+    padding:10px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+}
+
+th{
+    text-align:left;
+    background:#f4f6f8;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border-top:1px solid #ddd;
+}
+
+.shopping button{
+    background:#eef5fc;
+    border:1px solid #7397b8;
+    color:#214b70;
+    padding:5px 8px;
+    margin:2px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+/* SUGGESTIONS */
+.suggestions{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.suggestion-title{
+    background:#3978b5;
+    color:white;
+    padding:14px;
+    font-weight:bold;
+}
+
+.suggestions ul{
+    list-style:none;
+    padding:10px 20px;
+}
+
+.suggestions li{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    font-size:13px;
+}
+
+.suggestions li::before{
+    content:"●";
+    color:#3978b5;
+    margin-right:10px;
+}
+
+/* PARTY PAGE */
+.party{
+    margin-top:80px;
+}
+
+.party-header{
+    background:linear-gradient(135deg,#3978b5,#173d67);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.party-header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.party-header p{
+    font-size:13px;
+}
+
+.party-form{
+    background:white;
+    max-width:750px;
+    margin:25px auto;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.form-title{
+    background:#edf4f9;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:15px;
+    color:#245378;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd6df;
+    border-radius:6px;
+}
+
+.party-button{
+    display:block;
+    margin:20px auto 0;
+    padding:12px 25px;
+    border:0;
+    border-radius:25px;
+    background:#12385d;
+    color:white;
+    cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:650px){
+
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .budget-content{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+
+    <div class="logo">📁 SmartAI</div>
+
+    <div class="nav-links">
+        <a href="#">🏠 Home Planner</a>
+        <a href="#">🎉 Party Planner</a>
+        <a href="#">💎 Jewelry Planner</a>
+        <a href="#">📜 History</a>
+        <a href="#">↪ Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- HOME RECOMMENDATIONS -->
+<div class="container">
+
+    <button class="generate" onclick="generatePlan()">
+        📋 Generate Recommendations
+    </button>
+
+    <h1 class="title">
+        Your Personalized Budget Plan
+    </h1>
+
+
+    <!-- BUDGET SUMMARY -->
+    <div class="budget-box">
+
+        <div class="box-title">
+            📊 Budget Summary
+        </div>
+
+        <div class="budget-content">
+
+            <div>
+                <b>Total Budget:</b>
+                $5000.00
+            </div>
+
+            <div>
+                <b>Remaining Budget:</b>
+                <span class="remaining">$500.00</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LIGHTING -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>💡 Lighting</h3>
+            <p>Allocation: $1500.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>LED Bulb (Warm White)</b></td>
+
+                    <td>
+                        Energy-efficient LED bulbs
+                        for general lighting.
+                    </td>
+
+                    <td>$100.00</td>
+
+                    <td>5</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- CEILING FANS -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>🌀 Ceiling Fans</h3>
+            <p>Allocation: $2000.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>Havells Ceiling Fan</b></td>
+
+                    <td>
+                        Basic, functional ceiling fan.
+                    </td>
+
+                    <td>$500.00</td>
+
+                    <td>4</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- FURNITURE -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>🛋️ Furniture</h3>
+            <p>Allocation: $1000.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>Plastic Chair</b></td>
+
+                    <td>
+                        Stackable plastic chairs
+                        for kitchen or living room.
+                    </td>
+
+                    <td>$250.00</td>
+
+                    <td>2</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><b>Small Wooden Table</b></td>
+
+                    <td>
+                        Simple wooden table
+                        for dining or side table.
+                    </td>
+
+                    <td>$500.00</td>
+
+                    <td>1</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADDITIONAL SUGGESTIONS -->
+    <div class="suggestions">
+
+        <div class="suggestion-title">
+            💡 Additional Suggestions
+        </div>
+
+        <ul>
+            <li>
+                Consider purchasing used furniture
+                for further cost savings.
+            </li>
+
+            <li>
+                Look for sales and discounts
+                on online marketplaces.
+            </li>
+
+            <li>
+                Prioritize essential items and
+                postpone non-essential purchases.
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<!-- PARTY BUDGET PLANNER -->
+<section class="party">
+
+    <div class="party-header">
+
+        <h1>Party Budget Planner</h1>
+
+        <p>
+            Plan your perfect event with AI-powered
+            budget recommendations
+        </p>
+
+    </div>
+
+
+    <div class="party-form">
+
+        <div class="form-title">
+            💰 Basic Information
+        </div>
+
+        <div class="grid">
+
+            <div>
+                <label>Total Budget (₹)</label>
+
+                <input
+                    type="number"
+                    id="partyBudget"
+                    placeholder="Enter budget"
+                >
+            </div>
+
+            <div>
+                <label>Number of Guests</label>
+
+                <input
+                    type="number"
+                    id="guests"
+                    placeholder="Enter guests"
+                >
+            </div>
+
+        </div>
+
+        <button
+            class="party-button"
+            onclick="partyPlan()">
+            🎉 Generate Party Plan
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+function generatePlan(){
+
+    alert(
+        "Your personalized budget recommendation is ready!"
+    );
+
+}
+
+
+function partyPlan(){
+
+    let budget =
+        document.getElementById("partyBudget").value;
+
+    let guests =
+        document.getElementById("guests").value;
+
+    if(budget === "" || guests === ""){
+
+        alert("Please enter budget and number of guests.");
+
+        return;
+    }
+
+    alert(
+        "Party Plan Generated!\n\n" +
+        "Budget: ₹" + budget +
+        "\nGuests: " + guests
+    );
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Recommendations</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f5f7fb;
+    color:#243b53;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#12385d;
+    color:white;
+    padding:14px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:19px;
+}
+
+.nav-links{
+    display:flex;
+    gap:18px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+}
+
+/* MAIN */
+.container{
+    width:92%;
+    max-width:850px;
+    margin:25px auto;
+}
+
+.generate{
+    display:block;
+    margin:0 auto 20px;
+    background:linear-gradient(90deg,#397db9,#12385d);
+    color:white;
+    border:0;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    font-size:25px;
+    margin-bottom:18px;
+}
+
+/* BUDGET */
+.budget-box{
+    background:white;
+    border-radius:12px;
+    box-shadow:0 3px 12px #ddd;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.box-title{
+    background:linear-gradient(90deg,#397db9,#12385d);
+    color:white;
+    padding:13px;
+    font-weight:bold;
+}
+
+.budget-content{
+    display:flex;
+    justify-content:space-between;
+    padding:20px;
+    font-size:14px;
+}
+
+.remaining{
+    color:#239447;
+    font-weight:bold;
+}
+
+/* PRODUCT SECTION */
+.product-section{
+    background:white;
+    border-radius:13px;
+    margin-bottom:15px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.section-title{
+    background:#f1f1f7;
+    padding:14px;
+}
+
+.section-title h3{
+    color:#234b70;
+}
+
+.section-title p{
+    font-size:12px;
+    margin-top:5px;
+}
+
+.table-wrapper{
+    padding:10px;
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    font-size:12px;
+}
+
+th{
+    text-align:left;
+    background:#f4f6f8;
+    padding:10px;
+}
+
+td{
+    padding:10px;
+    border-top:1px solid #ddd;
+}
+
+.shopping button{
+    background:#eef5fc;
+    border:1px solid #7397b8;
+    color:#214b70;
+    padding:5px 8px;
+    margin:2px;
+    border-radius:4px;
+    cursor:pointer;
+}
+
+/* SUGGESTIONS */
+.suggestions{
+    background:white;
+    border-radius:12px;
+    overflow:hidden;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.suggestion-title{
+    background:#3978b5;
+    color:white;
+    padding:14px;
+    font-weight:bold;
+}
+
+.suggestions ul{
+    list-style:none;
+    padding:10px 20px;
+}
+
+.suggestions li{
+    padding:10px;
+    border-bottom:1px solid #ddd;
+    font-size:13px;
+}
+
+.suggestions li::before{
+    content:"●";
+    color:#3978b5;
+    margin-right:10px;
+}
+
+/* PARTY PAGE */
+.party{
+    margin-top:80px;
+}
+
+.party-header{
+    background:linear-gradient(135deg,#3978b5,#173d67);
+    color:white;
+    text-align:center;
+    padding:30px;
+}
+
+.party-header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.party-header p{
+    font-size:13px;
+}
+
+.party-form{
+    background:white;
+    max-width:750px;
+    margin:25px auto;
+    padding:22px;
+    border-radius:12px;
+    box-shadow:0 3px 15px #ddd;
+}
+
+.form-title{
+    background:#edf4f9;
+    padding:15px;
+    border-radius:8px;
+    margin-bottom:15px;
+    color:#245378;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+label{
+    display:block;
+    font-size:13px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd6df;
+    border-radius:6px;
+}
+
+.party-button{
+    display:block;
+    margin:20px auto 0;
+    padding:12px 25px;
+    border:0;
+    border-radius:25px;
+    background:#12385d;
+    color:white;
+    cursor:pointer;
+}
+
+/* MOBILE */
+@media(max-width:650px){
+
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+    }
+
+    .budget-content{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+
+    <div class="logo">📁 SmartAI</div>
+
+    <div class="nav-links">
+        <a href="#">🏠 Home Planner</a>
+        <a href="#">🎉 Party Planner</a>
+        <a href="#">💎 Jewelry Planner</a>
+        <a href="#">📜 History</a>
+        <a href="#">↪ Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- HOME RECOMMENDATIONS -->
+<div class="container">
+
+    <button class="generate" onclick="generatePlan()">
+        📋 Generate Recommendations
+    </button>
+
+    <h1 class="title">
+        Your Personalized Budget Plan
+    </h1>
+
+
+    <!-- BUDGET SUMMARY -->
+    <div class="budget-box">
+
+        <div class="box-title">
+            📊 Budget Summary
+        </div>
+
+        <div class="budget-content">
+
+            <div>
+                <b>Total Budget:</b>
+                $5000.00
+            </div>
+
+            <div>
+                <b>Remaining Budget:</b>
+                <span class="remaining">$500.00</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- LIGHTING -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>💡 Lighting</h3>
+            <p>Allocation: $1500.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>LED Bulb (Warm White)</b></td>
+
+                    <td>
+                        Energy-efficient LED bulbs
+                        for general lighting.
+                    </td>
+
+                    <td>$100.00</td>
+
+                    <td>5</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- CEILING FANS -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>🌀 Ceiling Fans</h3>
+            <p>Allocation: $2000.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>Havells Ceiling Fan</b></td>
+
+                    <td>
+                        Basic, functional ceiling fan.
+                    </td>
+
+                    <td>$500.00</td>
+
+                    <td>4</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- FURNITURE -->
+    <div class="product-section">
+
+        <div class="section-title">
+            <h3>🛋️ Furniture</h3>
+            <p>Allocation: $1000.00</p>
+        </div>
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <tr>
+                    <th>Item</th>
+                    <th>Description</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Shopping Links</th>
+                </tr>
+
+                <tr>
+                    <td><b>Plastic Chair</b></td>
+
+                    <td>
+                        Stackable plastic chairs
+                        for kitchen or living room.
+                    </td>
+
+                    <td>$250.00</td>
+
+                    <td>2</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td><b>Small Wooden Table</b></td>
+
+                    <td>
+                        Simple wooden table
+                        for dining or side table.
+                    </td>
+
+                    <td>$500.00</td>
+
+                    <td>1</td>
+
+                    <td class="shopping">
+                        <button>Amazon</button>
+                        <button>Flipkart</button>
+                        <button>Ikea</button>
+                        <button>Myntra</button>
+                        <button>Ajio</button>
+                    </td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADDITIONAL SUGGESTIONS -->
+    <div class="suggestions">
+
+        <div class="suggestion-title">
+            💡 Additional Suggestions
+        </div>
+
+        <ul>
+            <li>
+                Consider purchasing used furniture
+                for further cost savings.
+            </li>
+
+            <li>
+                Look for sales and discounts
+                on online marketplaces.
+            </li>
+
+            <li>
+                Prioritize essential items and
+                postpone non-essential purchases.
+            </li>
+        </ul>
+
+    </div>
+
+</div>
+
+
+<!-- PARTY BUDGET PLANNER -->
+<section class="party">
+
+    <div class="party-header">
+
+        <h1>Party Budget Planner</h1>
+
+        <p>
+            Plan your perfect event with AI-powered
+            budget recommendations
+        </p>
+
+    </div>
+
+
+    <div class="party-form">
+
+        <div class="form-title">
+            💰 Basic Information
+        </div>
+
+        <div class="grid">
+
+            <div>
+                <label>Total Budget (₹)</label>
+
+                <input
+                    type="number"
+                    id="partyBudget"
+                    placeholder="Enter budget"
+                >
+            </div>
+
+            <div>
+                <label>Number of Guests</label>
+
+                <input
+                    type="number"
+                    id="guests"
+                    placeholder="Enter guests"
+                >
+            </div>
+
+        </div>
+
+        <button
+            class="party-button"
+            onclick="partyPlan()">
+            🎉 Generate Party Plan
+        </button>
+
+    </div>
+
+</section>
+
+
+<script>
+
+function generatePlan(){
+
+    alert(
+        "Your personalized budget recommendation is ready!"
+    );
+
+}
+
+
+function partyPlan(){
+
+    let budget =
+        document.getElementById("partyBudget").value;
+
+    let guests =
+        document.getElementById("guests").value;
+
+    if(budget === "" || guests === ""){
+
+        alert("Please enter budget and number of guests.");
+
+        return;
+    }
+
+    alert(
+        "Party Plan Generated!\n\n" +
+        "Budget: ₹" + budget +
+        "\nGuests: " + guests
+    );
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SmartAI - Party Planner</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f5f9;
+    color:#183b60;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#12385d;
+    color:white;
+    padding:14px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-weight:bold;
+    font-size:18px;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    margin-left:18px;
+    font-size:12px;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#3978b5,#173d67);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+}
+
+.header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.header p{
+    font-size:13px;
+}
+
+/* FORM */
+.form-container{
+    width:90%;
+    max-width:750px;
+    margin:25px auto;
+    background:white;
+    padding:20px;
+    border-radius:10px;
+    box-shadow:0 3px 15px #d5d5d5;
+}
+
+.section{
+    background:#f0f5f9;
+    padding:18px;
+    border-radius:7px;
+    margin-bottom:15px;
+}
+
+.section h3{
+    font-size:15px;
+    color:#24557d;
+    margin-bottom:15px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+label{
+    font-size:12px;
+    font-weight:bold;
+    display:block;
+    margin-bottom:6px;
+}
+
+input,select,textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #ccd6df;
+    border-radius:6px;
+    background:white;
+}
+
+/* PARTY NEEDS */
+.needs{
+    display:flex;
+    gap:12px;
+}
+
+.need{
+    flex:1;
+    border:2px solid #dce5ed;
+    padding:15px;
+    border-radius:6px;
+    cursor:pointer;
+    font-size:13px;
+}
+
+.need:hover,
+.need.active{
+    border-color:#3978b5;
+    background:#eaf3fb;
+}
+
+.need input{
+    width:auto;
+}
+
+/* BUTTON */
+button{
+    width:100%;
+    padding:13px;
+    border:0;
+    border-radius:5px;
+    background:#3978b5;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#12385d;
+}
+
+/* RECOMMENDATIONS */
+.recommendation{
+    width:90%;
+    max-width:750px;
+    margin:40px auto;
+}
+
+.plan-header{
+    background:white;
+    padding:18px;
+    border-radius:8px;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.plan-header h2{
+    color:#245b8c;
+    margin-bottom:12px;
+}
+
+.budget{
+    font-size:20px;
+    font-weight:bold;
+    color:#3978b5;
+}
+
+/* PLAN CARD */
+.plan-card{
+    background:white;
+    margin-top:15px;
+    padding:18px;
+    border-radius:8px;
+    box-shadow:0 3px 12px #ddd;
+}
+
+.plan-card h3{
+    color:#24557d;
+    margin-bottom:12px;
+}
+
+.item{
+    background:#f5f7fa;
+    padding:13px;
+    margin-top:10px;
+    border-radius:6px;
+}
+
+.item h4{
+    margin-bottom:6px;
+}
+
+.price{
+    color:#247a48;
+    font-weight:bold;
+}
+
+.shop{
+    margin-top:8px;
+}
+
+.shop span{
+    display:inline-block;
+    border:1px solid #8ba8c0;
+    padding:5px 8px;
+    margin:3px;
+    border-radius:4px;
+    font-size:11px;
+    color:#24557d;
+}
+
+/* HIDE RESULT */
+#recommendation{
+    display:none;
+}
+
+/* FOOTER */
+footer{
+    background:#12385d;
+    color:white;
+    text-align:center;
+    padding:15px;
+    margin-top:40px;
+    font-size:11px;
+}
+
+/* MOBILE */
+@media(max-width:650px){
+
+    .navbar{
+        flex-direction:column;
+        gap:10px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+    .needs{
+        flex-direction:column;
+    }
+
+    .navbar a{
+        margin-left:6px;
+        font-size:10px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+
+    <div class="logo">📁 SmartAI</div>
+
+    <div>
+        <a href="#">🏠 Home Planner</a>
+        <a href="#">🎉 Party Planner</a>
+        <a href="#">💎 Jewelry Planner</a>
+        <a href="#">↩ History</a>
+        <a href="#">↪ Logout</a>
+    </div>
+
+</nav>
+
+
+<!-- PARTY PLANNER -->
+<section class="header">
+
+    <h1>Party Budget Planner</h1>
+
+    <p>
+        Plan your perfect event with AI-powered budget recommendations
+    </p>
+
+</section>
+
+
+<div class="form-container">
+
+    <!-- BASIC INFORMATION -->
+    <div class="section">
+
+        <h3>💰 Basic Information</h3>
+
+        <div class="grid">
+
+            <div>
+                <label>Total Budget (₹)</label>
+                <input
+                    type="number"
+                    id="budget"
+                    value="5000"
+                    placeholder="Enter budget">
+            </div>
+
+            <div>
+                <label>Number of Guests</label>
+                <input
+                    type="number"
+                    id="guests"
+                    value="5"
+                    placeholder="Enter guests">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- EVENT DETAILS -->
+    <div class="section">
+
+        <h3>🎉 Event Details</h3>
+
+        <div class="grid">
+
+            <div>
+                <label>Party Type</label>
+
+                <select id="partyType">
+                    <option>Wedding</option>
+                    <option>Birthday</option>
+                    <option>Engagement</option>
+                    <option>Family Function</option>
+                    <option>Corporate Event</option>
+                </select>
+            </div>
+
+            <div>
+                <label>Venue Type</label>
+
+                <select id="venue">
+                    <option>Home</option>
+                    <option>Hotel</option>
+                    <option>Outdoor</option>
+                    <option>Community Hall</option>
+                </select>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- PARTY NEEDS -->
+    <div class="section">
+
+        <h3>📋 Party Needs</h3>
+
+        <div class="needs">
+
+            <label class="need">
+                <input type="checkbox" id="catering" checked>
+                🍽️ Catering
+            </label>
+
+            <label class="need">
+                <input type="checkbox" id="decoration">
+                🎈 Decoration
+            </label>
+
+            <label class="need">
+                <input type="checkbox" id="entertainment" checked>
+                🎵 Entertainment
+            </label>
+
+        </div>
+
+    </div>
+
+
+    <!-- ADDITIONAL REQUIREMENTS -->
+    <div class="section">
+
+        <h3>💬 Additional Requirements</h3>
+
+        <textarea
+            id="requirements"
+            rows="4"
+            placeholder="Special requests, themes, dietary restrictions, etc.">
+        </textarea>
+
+    </div>
+
+
+    <button onclick="generatePartyPlan()">
+        📋 Generate Budget Plan
+    </button>
+
+</div>
+
+
+<!-- PARTY RECOMMENDATIONS -->
+<section class="recommendation" id="recommendation">
+
+    <div class="plan-header">
+
+        <h2>Your Party Budget Plan</h2>
+
+        <div class="budget">
+            Budget: ₹<span id="showBudget">5000.00</span>
+        </div>
+
+    </div>
+
+
+    <!-- VENUE -->
+    <div class="plan-card">
+
+        <h3>📍 Venue</h3>
+
+        <div class="item">
+
+            <h4 id="showVenue">Home</h4>
+
+            <p>
+                Suitable venue based on your selected
+                party requirements.
+            </p>
+
+            <div class="price">
+                ₹0.00
+            </div>
+
+            <div class="shop">
+                <span>Google</span>
+                <span>Booking</span>
+                <span>Expedia</span>
+                <span>MakeMyTrip</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- CATERING -->
+    <div class="plan-card">
+
+        <h3>🍽️ Catering</h3>
+
+        <div class="item">
+
+            <h4>Party Food Package</h4>
+
+            <p>
+                Food package recommended according
+                to your guest count.
+            </p>
+
+            <div class="price">
+                ₹2000.00
+            </div>
+
+            <div class="shop">
+                <span>Swiggy</span>
+                <span>Zomato</span>
+                <span>Local Catering</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- DECORATION -->
+    <div class="plan-card">
+
+        <h3>🎈 Decoration</h3>
+
+        <div class="item">
+
+            <h4>Basic Party Decoration</h4>
+
+            <p>
+                Simple decoration package suitable
+                for your selected event.
+            </p>
+
+            <div class="price">
+                ₹1000.00
+            </div>
+
+            <div class="shop">
+                <span>Amazon</span>
+                <span>Flipkart</span>
+                <span>Local Decorators</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ENTERTAINMENT -->
+    <div class="plan-card">
+
+        <h3>🎵 Entertainment</h3>
+
+        <div class="item">
+
+            <h4>Music & Entertainment</h4>
+
+            <p>
+                Entertainment suggestions based
+                on your party type.
+            </p>
+
+            <div class="price">
+                ₹1000.00
+            </div>
+
+            <div class="shop">
+                <span>Local DJ</span>
+                <span>Event Planner</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<footer>
+    © 2025 SmartAI. All rights reserved.
+</footer>
+
+
+<script>
+
+function generatePartyPlan(){
+
+    let budget =
+        document.getElementById("budget").value;
+
+    let guests =
+        document.getElementById("guests").value;
+
+    let venue =
+        document.getElementById("venue").value;
+
+    if(budget === "" || guests === ""){
+
+        alert("Please enter budget and guest count.");
+
+        return;
+    }
+
+    document.getElementById("showBudget").innerText =
+        Number(budget).toFixed(2);
+
+    document.getElementById("showVenue").innerText =
+        venue;
+
+    document.getElementById("recommendation").style.display =
+        "block";
+
+    document.getElementById("recommendation")
+        .scrollIntoView({
+            behavior:"smooth"
+        });
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Jewelry Budget Planner</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f6fa;
+    color:#173b5f;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#12385d;
+    color:white;
+    padding:14px 25px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.logo{
+    font-size:19px;
+    font-weight:bold;
+}
+
+.nav-links{
+    display:flex;
+    gap:18px;
+}
+
+.nav-links a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+}
+
+.nav-links a:hover{
+    color:#9bc9ee;
+}
+
+/* HEADER */
+.header{
+    background:linear-gradient(135deg,#3979b6,#173d68);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+}
+
+.header h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.header p{
+    font-size:13px;
+}
+
+/* FORM CONTAINER */
+.container{
+    width:90%;
+    max-width:750px;
+    margin:25px auto;
+    background:white;
+    padding:20px;
+    border-radius:12px;
+    box-shadow:0 4px 16px rgba(0,0,0,.15);
+}
+
+/* SECTION */
+.section{
+    background:#edf4f9;
+    padding:18px;
+    border-radius:7px;
+    margin-bottom:15px;
+}
+
+.section h3{
+    color:#24567d;
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+label{
+    display:block;
+    font-size:12px;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+input[type="number"],
+input[type="text"],
+textarea{
+    width:100%;
+    padding:11px;
+    border:1px solid #cdd8e1;
+    border-radius:6px;
+    background:white;
+    outline:none;
+}
+
+input:focus,
+textarea:focus{
+    border-color:#3979b6;
+}
+
+/* OCCASION */
+.occasion{
+    margin-bottom:15px;
+}
+
+/* IMAGE UPLOAD */
+.upload-box{
+    display:flex;
+    align-items:center;
+    gap:15px;
+    flex-wrap:wrap;
+}
+
+.preview{
+    width:270px;
+    height:145px;
+    background:white;
+    border:1px solid #cbd5df;
+    border-radius:7px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+}
+
+.preview img{
+    width:100%;
+    height:100%;
+    object-fit:contain;
+}
+
+.remove-btn{
+    background:#5b6772;
+    color:white;
+    border:none;
+    padding:9px 13px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+/* FILE INPUT */
+.file-label{
+    display:inline-block;
+    background:#3979b6;
+    color:white;
+    padding:9px 14px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+#imageInput{
+    display:none;
+}
+
+/* MAIN BUTTON */
+.recommend-btn{
+    display:block;
+    margin:10px auto 0;
+    padding:13px 30px;
+    border:none;
+    border-radius:25px;
+    background:linear-gradient(90deg,#3979b6,#12385d);
+    color:white;
+    font-size:14px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.recommend-btn:hover{
+    opacity:.9;
+}
+
+/* RESULT */
+#result{
+    display:none;
+    margin-top:20px;
+    background:#eef7f1;
+    border-left:5px solid #2d8b57;
+    padding:18px;
+    border-radius:7px;
+}
+
+#result h3{
+    color:#267447;
+    margin-bottom:10px;
+}
+
+/* FOOTER */
+footer{
+    background:#12385d;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:11px;
+    margin-top:30px;
+}
+
+/* MOBILE */
+@media(max-width:650px){
+
+    .navbar{
+        flex-direction:
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Jewelry Recommendations</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f3f5f9;
+    color:#23415f;
+}
+
+.container{
+    width:92%;
+    max-width:800px;
+    margin:25px auto;
+}
+
+/* BUTTON */
+.top-btn{
+    display:block;
+    margin:0 auto 20px;
+    background:linear-gradient(90deg,#3979b6,#12385d);
+    color:white;
+    border:0;
+    padding:12px 25px;
+    border-radius:25px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* TITLE */
+.title{
+    text-align:center;
+    margin-bottom:18px;
+}
+
+.title h1{
+    font-size:23px;
+    color:#294967;
+}
+
+/* CARD */
+.card{
+    background:white;
+    border-radius:10px;
+    margin-bottom:15px;
+    padding:15px;
+    box-shadow:0 3px 12px #ddd;
+}
+
+/* BLUE HEADER */
+.card-header{
+    background:linear-gradient(90deg,#3979b6,#12385d);
+    color:white;
+    padding:12px;
+    margin:-15px -15px 15px;
+    border-radius:10px 10px 0 0;
+    font-size:15px;
+    font-weight:bold;
+}
+
+/* BUDGET */
+.budget-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:13px;
+    padding:5px;
+}
+
+.budget-row strong{
+    color:#3979b6;
+}
+
+/* OUTFIT */
+.outfit{
+    background:#edf3f7;
+    padding:14px;
+    border-radius:5px;
+    display:flex;
+    justify-content:space-around;
+    gap:10px;
+    font-size:12px;
+}
+
+/* JEWELRY */
+.jewelry{
+    padding:15px 5px;
+    border-left:3px solid #3979b6;
+    border-bottom:1px solid #ddd;
+    margin-bottom:12px;
+}
+
+.jewelry:last-child{
+    border-bottom:none;
+}
+
+.jewelry-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.jewelry h3{
+    font-size:15px;
+    text-transform:lowercase;
+    margin-bottom:7px;
+}
+
+.price{
+    background:#1475d1;
+    color:white;
+    padding:6px 10px;
+    border-radius:4px;
+    font-size:12px;
+    font-weight:bold;
+    height:max-content;
+}
+
+.jewelry p{
+    font-size:11px;
+    line-height:1.5;
+    color:#555;
+    margin-bottom:7px;
+}
+
+.style{
+    font-size:11px;
+    font-weight:bold;
+}
+
+/* SHOP BUTTONS */
+.shop-title{
+    margin-top:12px;
+    font-size:11px;
+    font-weight:bold;
+}
+
+.shops{
+    margin-top:5px;
+}
+
+.shops span{
+    display:inline-block;
+    background:#eef3f8;
+    color:#315d82;
+    padding:5px 8px;
+    border-radius:10px;
+    margin:3px;
+    font-size:9px;
+}
+
+/* TIPS */
+.tips{
+    background:#fff8e7;
+    padding:12px;
+    border-left:3px solid #d9a62b;
+}
+
+.tips li{
+    font-size:11px;
+    margin:8px 0 8px 18px;
+}
+
+/* FOOTER */
+footer{
+    background:#12385d;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:11px;
+    margin-top:25px;
+}
+
+/* MOBILE */
+@media(max-width:600px){
+
+    .outfit{
+        flex-direction:column;
+        gap:8px;
+    }
+
+    .jewelry-top{
+        flex-direction:column;
+    }
+
+    .price{
+        width:max-content;
+    }
+}
+
+/* PRINT */
+@media print{
+
+    .top-btn{
+        display:none;
+    }
+
+    body{
+        background:white;
+    }
+
+    .container{
+        width:100%;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- GET RECOMMENDATION BUTTON -->
+    <button class="top-btn" onclick="window.print()">
+        ✎ Get Recommendations
+    </button>
+
+
+    <!-- TITLE -->
+    <div class="title">
+        <h1>Your Personalized Jewelry Recommendations</h1>
+    </div>
+
+
+    <!-- BUDGET SUMMARY -->
+    <div class="card">
+
+        <div class="card-header">
+            📊 Budget Summary
+        </div>
+
+        <div class="budget-row">
+            <span>Total Budget:</span>
+            <strong>₹5000.00</strong>
+        </div>
+
+        <div class="budget-row">
+            <span>Remaining Budget:</span>
+            <strong style="color:#28a745;">₹800.00</strong>
+        </div>
+
+    </div>
+
+
+    <!-- OUTFIT ANALYSIS -->
+    <div class="card">
+
+        <div class="card-header">
+            👕 Outfit Analysis
+        </div>
+
+        <div class="outfit">
+
+            <div>
+                🎨 <b>Colors:</b> blue, white
+            </div>
+
+            <div>
+                🏷️ <b>Style:</b> casual
+            </div>
+
+            <div>
+                🔍 <b>Formality:</b> informal
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- JEWELRY RECOMMENDATIONS -->
+    <div class="card">
+
+        <div class="card-header">
+            💎 Jewelry Recommendations
+        </div>
+
+
+        <!-- BRACELET -->
+        <div class="jewelry">
+
+            <div class="jewelry-top">
+
+                <div>
+                    <h3>🔵 bracelet</h3>
+
+                    <p>
+                        <b>Description:</b>
+                        A simple, braided leather bracelet
+                        with metal accents. This complements
+                        the casual style of the outfit without
+                        being overly flashy.
+                    </p>
+
+                    <div class="style">
+                        Style: casual
+                    </div>
+                </div>
+
+                <div class="price">
+                    $500.00
+                </div>
+
+            </div>
+
+            <div class="shop-title">
+                🛒 Shop For This:
+            </div>
+
+            <div class="shops">
+                <span>Amazon</span>
+                <span>Flipkart</span>
+                <span>BlueStone</span>
+                <span>Tanishq</span>
+                <span>CaratLane</span>
+                <span>Mia</span>
+                <span>Myntra</span>
+            </div>
+
+        </div>
+
+
+        <!-- RING -->
+        <div class="jewelry">
+
+            <div class="jewelry-top">
+
+                <div>
+
+                    <h3>⚪ ring</h3>
+
+                    <p>
+                        <b>Description:</b>
+                        A silver or dark grey metal ring
+                        with a minimalist design. Adds
+                        a touch of elegance to maintain
+                        the casual feel.
+                    </p>
+
+                    <div class="style">
+                        Style: minimalist
+                    </div>
+
+                </div>
+
+                <div class="price">
+                    $700.00
+                </div>
+
+            </div>
+
+            <div class="shop-title">
+                🛒 Shop For This:
+            </div>
+
+            <div class="shops">
+                <span>Amazon</span>
+                <span>Flipkart</span>
+                <span>BlueStone</span>
+                <span>Tanishq</span>
+                <span>CaratLane</span>
+                <span>Mia</span>
+                <span>Myntra</span>
+            </div>
+
+        </div>
+
+
+        <!-- WATCH -->
+        <div class="jewelry">
+
+            <div class="jewelry-top">
+
+                <div>
+
+                    <h3>💎 watch</h3>
+
+                    <p>
+                        <b>Description:</b>
+                        A classic, simple watch with a
+                        leather or metal band. A darker
+                        band would complement the shirt's
+                        colors.
+                    </p>
+
+                    <div class="style">
+                        Style: classic
+                    </div>
+
+                </div>
+
+                <div class="price">
+                    $800.00
+                </div>
+
+            </div>
+
+            <div class="shop-title">
+                🛒 Shop For This:
+            </div>
+
+            <div class="shops">
+                <span>Amazon</span>
+                <span>Flipkart</span>
+                <span>BlueStone</span>
+                <span>Tanishq</span>
+                <span>CaratLane</span>
+                <span>Mia</span>
+                <span>Myntra</span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STYLING TIPS -->
+    <div class="card">
+
+        <div class="card-header">
+            💡 Styling Tips
+        </div>
+
+        <div class="tips">
+
+            <ul>
+
+                <li>
+                    Keep the jewelry minimal to match
+                    the casual style of the outfit.
+                </li>
+
+                <li>
+                    Consider the watch as a statement
+                    piece, choosing a design that
+                    reflects personal style.
+                </li>
+
+                <li>
+                    Ensure the metal tones of the ring
+                    and bracelet complement each other.
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<footer>
+    © 2025 SmartAI | Smart Budget Solutions
+</footer>
+
+
+<script>
+
+function getRecommendations(){
+
+    alert(
+        "Jewelry recommendations generated successfully!"
+    );
+
+}
+
+</script>
+
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>SmartAI - Recommendation History</title>
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    background:#f2f3f8;
+    color:#23415f;
+}
+
+/* NAVBAR */
+.navbar{
+    background:#12385d;
+    padding:13px 25px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.navbar a{
+    color:white;
+    text-decoration:none;
+    font-size:12px;
+    margin:0 10px;
+}
+
+.navbar a:hover{
+    color:#9ecbf0;
+}
+
+/* MAIN */
+.container{
+    width:90%;
+    max-width:900px;
+    margin:20px auto;
+}
+
+/* HERO */
+.hero{
+    background:linear-gradient(135deg,#3979b6,#17416d);
+    color:white;
+    text-align:center;
+    padding:30px 15px;
+    border-radius:10px;
+    box-shadow:0 4px 12px #ccc;
+}
+
+.hero h1{
+    font-size:24px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:12px;
+}
+
+/* TITLE */
+.history-title{
+    margin:28px 0 15px;
+    font-size:17px;
+    color:#24567d;
+}
+
+/* HISTORY GRID */
+.history-grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+}
+
+/* HISTORY CARD */
+.history-card{
+    background:white;
+    border-radius:8px;
+    overflow:hidden;
+    box-shadow:0 3px 10px #ddd;
+    border-top:4px solid #3979b6;
+}
+
+.history-card.jewelry{
+    border-top-color:#e45b9b;
+}
+
+.history-card.party{
+    border-top-color:#f0a82e;
+}
+
+.history-card.home{
+    border-top-color:#52a65d;
+}
+
+/* CARD HEADER */
+.card-header{
+    padding:12px;
+    background:#f6f6fa;
+    display:flex;
+    justify-content:space-between;
+    gap:5px;
+}
+
+.card-header h3{
+    font-size:13px;
+}
+
+.date{
+    font-size:9px;
+    color:#777;
+}
+
+/* CARD BODY */
+.card-body{
+    padding:12px;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:7px 0;
+    border-bottom:1px solid #eee;
+    font-size:10px;
+}
+
+.row:last-of-type{
+    border-bottom:none;
+}
+
+.row strong{
+    color:#3979b6;
+}
+
+/* TAGS */
+.tags{
+    margin-top:8px;
+}
+
+.tag{
+    display:inline-block;
+    background:#edf3fa;
+    color:#3979b6;
+    padding:5px 7px;
+    border-radius:10px;
+    margin:2px;
+    font-size:8px;
+}
+
+/* BUTTON */
+.details-btn{
+    width:100%;
+    margin-top:12px;
+    padding:9px;
+    border:none;
+    border-radius:4px;
+    background:#3979b6;
+    color:white;
+    font-size:10px;
+    cursor:pointer;
+}
+
+.details-btn:hover{
+    background:#12385d;
+}
+
+/* MESSAGE */
+#message{
+    display:none;
+    margin-top:20px;
+    background:#e9f5ed;
+    color:#267447;
+    padding:12px;
+    border-radius:6px;
+    text-align:center;
+    font-size:13px;
+}
+
+/* FOOTER */
+footer{
+    margin-top:40px;
+    background:#12385d;
+    color:white;
+    text-align:center;
+    padding:15px;
+    font-size:11px;
+}
+
+/* MOBILE */
+@media(max-width:750px){
+
+    .history-grid{
+        grid-template-columns:1fr;
+    }
+
+    .navbar{
+        flex-wrap:wrap;
+        gap:5px;
+    }
+
+    .navbar a{
+        margin:4px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar">
+
+    <a href="#">⌂ Dashboard</a>
+    <a href="#">▣ Home Planner</a>
+    <a href="#">♟ Party Planner</a>
+    <a href="#">♦ Jewelry Planner</a>
+    <a href="#">↶ History</a>
+
+</nav>
+
+
+<div class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+
+        <h1>Your Recommendation History</h1>
+
+        <p>
+            View and manage all your previous budget plans
+            and recommendations
+        </p>
+
+    </section>
+
+
+    <!-- TITLE -->
+    <h2 class="history-title">
+        ↶ Recent Recommendations
+    </h2>
+
+
+    <!-- HISTORY CARDS -->
+    <div class="history-grid">
+
+
+        <!-- JEWELRY -->
+        <div class="history-card jewelry">
+
+            <div class="card-header">
+
+                <h3>💎 Jewelry Budget</h3>
+
+                <span class="date">
+                    May 22, 2025, 12:06 PM
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <span>Total Budget</span>
+                    <strong>₹5,000</strong>
+                </div>
+
+                <div class="row">
+                    <span>Remaining</span>
+                    <strong>₹800</strong>
+                </div>
+
+                <div class="row">
+                    <span>Occasion</span>
+                    <span>Birthday</span>
+                </div>
+
+                <div class="row">
+                    <span>With outfit image</span>
+                    <span>Yes</span>
+                </div>
+
+                <button
+                    class="details-btn"
+                    onclick="showDetails('Jewelry Budget')">
+
+                    💎 View Full Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- PARTY -->
+        <div class="history-card party">
+
+            <div class="card-header">
+
+                <h3>🎉 Party Planning Budget</h3>
+
+                <span class="date">
+                    May 22, 2025, 12:05 PM
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <span>Total Budget</span>
+                    <strong>₹5,000</strong>
+                </div>
+
+                <div class="row">
+                    <span>Remaining</span>
+                    <strong>₹0</strong>
+                </div>
+
+                <div class="row">
+                    <span>Party Type</span>
+                    <span>Wedding</span>
+                </div>
+
+                <div class="row">
+                    <span>Guests</span>
+                    <span>3</span>
+                </div>
+
+                <div class="tags">
+
+                    <span class="tag">Venue</span>
+                    <span class="tag">Catering</span>
+                    <span class="tag">Entertainment</span>
+                    <span class="tag">Contingency</span>
+
+                </div>
+
+                <button
+                    class="details-btn"
+                    onclick="showDetails('Party Planning Budget')">
+
+                    🎉 View Full Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- HOME -->
+        <div class="history-card home">
+
+            <div class="card-header">
+
+                <h3>🏠 Home Interior Budget</h3>
+
+                <span class="date">
+                    May 22, 2025, 12:02 PM
+                </span>
+
+            </div>
+
+            <div class="card-body">
+
+                <div class="row">
+                    <span>Total Budget</span>
+                    <strong>₹5,000</strong>
+                </div>
+
+                <div class="row">
+                    <span>Remaining</span>
+                    <strong>₹500</strong>
+                </div>
+
+                <div class="row">
+                    <span>Rooms</span>
+                    <span>Living Room, Kitchen</span>
+                </div>
+
+                <div class="row">
+                    <span>Lights</span>
+                    <span>5</span>
+                </div>
+
+                <div class="row">
+                    <span>Fans</span>
+                    <span>4</span>
+                </div>
+
+                <div class="row">
+                    <span>Furniture</span>
+                    <span>2</span>
+                </div>
+
+                <div class="tags">
+
+                    <span class="tag">lighting</span>
+                    <span class="tag">ceiling_fans</span>
+                    <span class="tag">furniture</span>
+
+                </div>
+
+                <button
+                    class="details-btn"
+                    onclick="showDetails('Home Interior Budget')">
+
+                    🏠 View Full Details
+
+                </button>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MESSAGE -->
+    <div id="message"></div>
+
+</div>
+
+
+<!-- FOOTER -->
+<footer>
+
+    © 2025 SmartAI | Smart Budget Solutions
+
+</footer>
+
+
+<script>
+
+function showDetails(type){
+
+    const message =
+        document.getElementById("message");
+
+    message.style.display = "block";
+
+    message.innerHTML =
+        "✅ " + type +
+        " details selected. Full recommendation details can be loaded here.";
+
+    message.scrollIntoView({
+        behavior:"smooth"
+    });
+}
+
+</script>
+
+</body>
+</html>
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Optional
+
+app = FastAPI(
+    title="SmartAI",
+    description="Smart Budget and Recommendation Assistant API",
+    version="1.0"
+)
+
+# Allow frontend to connect
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# -----------------------------
+# REQUEST MODELS
+# -----------------------------
+
+class HomeRequest(BaseModel):
+    budget: float
+    lights: int = 0
+    fans: int = 0
+    furniture: int = 0
+    dining_tables: int = 0
+    rooms: list[str] = []
+    preferences: Optional[str] = ""
+
+
+class PartyRequest(BaseModel):
+    budget: float
+    guests: int
+    party_type: str
+    venue_type: str
+    catering: bool = True
+    decoration: bool = False
+    entertainment: bool = False
+    requirements: Optional[str] = ""
+
+
+class JewelryRequest(BaseModel):
+    budget: float
+    occasion: str
+    style: Optional[str] = ""
+    outfit_image: Optional[str] = None
+
+
+# -----------------------------
+# HOME RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/home/recommend")
+def home_recommend(data: HomeRequest):
+
+    lighting_budget = data.budget * 0.30
+    furniture_budget = data.budget * 0.40
+    fan_budget = data.budget * 0.20
+    other_budget = data.budget * 0.10
+
+    return {
+        "success": True,
+        "category": "Home Interior",
+        "budget": data.budget,
+
+        "recommendations": {
+            "lighting": {
+                "allocation": round(lighting_budget, 2),
+                "quantity": data.lights,
+                "item": "LED Bulbs / Smart Lights"
+            },
+
+            "ceiling_fans": {
+                "allocation": round(fan_budget, 2),
+                "quantity": data.fans,
+                "item": "Energy Efficient Ceiling Fan"
+            },
+
+            "furniture": {
+                "allocation": round(furniture_budget, 2),
+                "quantity": data.furniture,
+                "item": "Budget Friendly Furniture"
+            },
+
+            "other": {
+                "allocation": round(other_budget, 2),
+                "item": "Home Decor Accessories"
+            }
+        },
+
+        "additional_suggestions": [
+            "Compare prices before purchasing.",
+            "Look for online discounts.",
+            "Prioritize essential items first."
+        ]
+    }
+
+
+# -----------------------------
+# PARTY RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/party/recommend")
+def party_recommend(data: PartyRequest):
+
+    catering = data.budget * 0.40 if data.catering else 0
+    decoration = data.budget * 0.20 if data.decoration else 0
+    entertainment = data.budget * 0.20 if data.entertainment else 0
+
+    used = catering + decoration + entertainment
+    contingency = max(data.budget - used, 0)
+
+    return {
+        "success": True,
+        "category": "Party Planning",
+        "budget": data.budget,
+        "guests": data.guests,
+        "party_type": data.party_type,
+        "venue": data.venue_type,
+
+        "recommendations": {
+            "catering": round(catering, 2),
+            "decoration": round(decoration, 2),
+            "entertainment": round(entertainment, 2),
+            "contingency": round(contingency, 2)
+        },
+
+        "additional_suggestions": [
+            "Compare catering packages.",
+            "Look for venue discounts.",
+            "Use simple decorations to save money."
+        ]
+    }
+
+
+# -----------------------------
+# JEWELRY RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/jewelry/recommend")
+def jewelry_recommend(data: JewelryRequest):
+
+    bracelet = data.budget * 0.15
+    ring = data.budget * 0.20
+    watch = data.budget * 0.25
+
+    remaining = data.budget - (
+        bracelet + ring + watch
+    )
+
+    return {
+        "success": True,
+        "category": "Jewelry",
+        "budget": data.budget,
+        "occasion": data.occasion,
+        "style": data.style,
+
+        "outfit_analysis": {
+            "colors": "Blue, White",
+            "style": data.style or "Casual",
+            "formality": "Informal"
+        },
+
+        "recommendations": [
+            {
+                "item": "Bracelet",
+                "description": "Simple bracelet suitable for the selected outfit.",
+                "price": round(bracelet, 2),
+                "style": "Casual"
+            },
+
+            {
+                "item": "Ring",
+                "description": "Minimalist ring suitable for the occasion.",
+                "price": round(ring, 2),
+                "style": "Minimalist"
+            },
+
+            {
+                "item": "Watch",
+                "description": "Classic watch matching the outfit.",
+                "price": round(watch, 2),
+                "style": "Classic"
+            }
+        ],
+
+        "remaining_budget": round(remaining, 2),
+
+        "styling_tips": [
+            "Keep the jewelry minimal.",
+            "Match metal colours with each other.",
+            "Choose accessories according to the occasion
+            from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from typing import Optional
+
+app = FastAPI(
+    title="SmartAI",
+    description="Smart Budget and Recommendation Assistant API",
+    version="1.0"
+)
+
+# Allow frontend to connect
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+
+# -----------------------------
+# REQUEST MODELS
+# -----------------------------
+
+class HomeRequest(BaseModel):
+    budget: float
+    lights: int = 0
+    fans: int = 0
+    furniture: int = 0
+    dining_tables: int = 0
+    rooms: list[str] = []
+    preferences: Optional[str] = ""
+
+
+class PartyRequest(BaseModel):
+    budget: float
+    guests: int
+    party_type: str
+    venue_type: str
+    catering: bool = True
+    decoration: bool = False
+    entertainment: bool = False
+    requirements: Optional[str] = ""
+
+
+class JewelryRequest(BaseModel):
+    budget: float
+    occasion: str
+    style: Optional[str] = ""
+    outfit_image: Optional[str] = None
+
+
+# -----------------------------
+# HOME RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/home/recommend")
+def home_recommend(data: HomeRequest):
+
+    lighting_budget = data.budget * 0.30
+    furniture_budget = data.budget * 0.40
+    fan_budget = data.budget * 0.20
+    other_budget = data.budget * 0.10
+
+    return {
+        "success": True,
+        "category": "Home Interior",
+        "budget": data.budget,
+
+        "recommendations": {
+            "lighting": {
+                "allocation": round(lighting_budget, 2),
+                "quantity": data.lights,
+                "item": "LED Bulbs / Smart Lights"
+            },
+
+            "ceiling_fans": {
+                "allocation": round(fan_budget, 2),
+                "quantity": data.fans,
+                "item": "Energy Efficient Ceiling Fan"
+            },
+
+            "furniture": {
+                "allocation": round(furniture_budget, 2),
+                "quantity": data.furniture,
+                "item": "Budget Friendly Furniture"
+            },
+
+            "other": {
+                "allocation": round(other_budget, 2),
+                "item": "Home Decor Accessories"
+            }
+        },
+
+        "additional_suggestions": [
+            "Compare prices before purchasing.",
+            "Look for online discounts.",
+            "Prioritize essential items first."
+        ]
+    }
+
+
+# -----------------------------
+# PARTY RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/party/recommend")
+def party_recommend(data: PartyRequest):
+
+    catering = data.budget * 0.40 if data.catering else 0
+    decoration = data.budget * 0.20 if data.decoration else 0
+    entertainment = data.budget * 0.20 if data.entertainment else 0
+
+    used = catering + decoration + entertainment
+    contingency = max(data.budget - used, 0)
+
+    return {
+        "success": True,
+        "category": "Party Planning",
+        "budget": data.budget,
+        "guests": data.guests,
+        "party_type": data.party_type,
+        "venue": data.venue_type,
+
+        "recommendations": {
+            "catering": round(catering, 2),
+            "decoration": round(decoration, 2),
+            "entertainment": round(entertainment, 2),
+            "contingency": round(contingency, 2)
+        },
+
+        "additional_suggestions": [
+            "Compare catering packages.",
+            "Look for venue discounts.",
+            "Use simple decorations to save money."
+        ]
+    }
+
+
+# -----------------------------
+# JEWELRY RECOMMENDATION
+# -----------------------------
+
+@app.post("/api/jewelry/recommend")
+def jewelry_recommend(data: JewelryRequest):
+
+    bracelet = data.budget * 0.15
+    ring = data.budget * 0.20
+    watch = data.budget * 0.25
+
+    remaining = data.budget - (
+        bracelet + ring + watch
+    )
+
+    return {
+        "success": True,
+        "category": "Jewelry",
+        "budget": data.budget,
+        "occasion": data.occasion,
+        "style": data.style,
+
+        "outfit_analysis": {
+            "colors": "Blue, White",
+            "style": data.style or "Casual",
+            "formality": "Informal"
+        },
+
+        "recommendations": [
+            {
+                "item": "Bracelet",
+                "description": "Simple bracelet suitable for the selected outfit.",
+                "price": round(bracelet, 2),
+                "style": "Casual"
+            },
+
+            {
+                "item": "Ring",
+                "description": "Minimalist ring suitable for the occasion.",
+                "price": round(ring, 2),
+                "style": "Minimalist"
+            },
+
+            {
+                "item": "Watch",
+                "description": "Classic watch matching the outfit.",
+                "price": round(watch, 2),
+                "style": "Classic"
+            }
+        ],
+
+        "remaining_budget": round(remaining, 2),
+
+        "styling_tips": [
+            "Keep the jewelry minimal.",
+            "Match metal colours with each other.",
+            "Choose accessories according to the occasion."
+        ]
+    }
+
+
+# -----------------------------
+# HEALTH CHECK
+# -----------------------------
+
+@app.get("/")
+def home():
+    return {
+        "message": "SmartAI Backend is running successfully!"
+    }
+
+
+@app.get("/health")
+def health():
+    return {
+        "status": "OK",
+        "service": "SmartAI"
+    }
+    
